@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "strict": false,
+    "esModuleInterop": true,
+    "allowJs": false,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  },
+  "include": ["./source/**/*"],
+  "exclude": ["./dist", "node_modules"]
+}

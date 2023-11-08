@@ -1,0 +1,14 @@
+.editorconfig
+.env.development
+.env.production
+
+.eslintignore
+.eslintrc.js
+.gitignore
+.gitlab-ci.yml
+.prettierrc
+docker-compose.yml
+Dockerfile
+README.md
+release.config.js
+
