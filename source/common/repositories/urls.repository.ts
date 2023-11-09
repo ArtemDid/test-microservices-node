@@ -1,4 +1,3 @@
-import { IUrlDB } from '../db/interfaces/url.interface';
 import { urlsRedisClient } from '../db/redis';
 
 type DataUrlsType = {

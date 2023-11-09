@@ -36,12 +36,3 @@ export const parseHref = (href: string, domain: string): string => {
 
   return newUrl || (href.startsWith('//') ? isURL(`https:${href}`) : href[0] === '/' ? isURL(`${domain}${href}`) : '');
 };
-
-export const distribute = (arrWithUrl: Array<IUrlsDb>, hostname: string) => {
-  const distributedArray: Array<IUrlsDb> = [];
-  arrWithUrl.map(item => {
-    if (item.url.startsWith(hostname)) distributedArray.push(item);
-  });
-
-  return distributedArray;
-};

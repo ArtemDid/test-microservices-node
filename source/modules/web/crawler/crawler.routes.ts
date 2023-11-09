@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import { CrawlerController } from './crawler.controller';
+import { validateSchema } from '../../../common/middlewares/validate';
+import { operationSchema, statusSchema } from './middlewares/operations.schema';
 
 export const createCrawlerRouter = () => {
   const router = Router();
@@ -9,22 +11,34 @@ export const createCrawlerRouter = () => {
    * /api/crawling/async-operation:
    *   post:
    *     summary: Post
+   *     parameters:
+   *       - in: query
+   *         name: domain
+   *         type: string
+   *         required: true
+   *         description: Domain
    *     responses:
    *       200:
    *         description: Status
    */
-  router.post('/async-operation', CrawlerController.asyncOperation);
+  router.post('/async-operation', validateSchema(operationSchema), CrawlerController.asyncOperation);
 
   /**
    * @swagger
    * /api/crawling/sync-operation:
    *   post:
    *     summary: Post
+   *     parameters:
+   *       - in: query
+   *         name: domain
+   *         type: string
+   *         required: true
+   *         description: Domain
    *     responses:
    *       200:
    *         description: Status
    */
-  router.post('/sync-operation', CrawlerController.syncOperation);
+  router.post('/sync-operation', validateSchema(operationSchema), CrawlerController.syncOperation);
 
   /**
    * @swagger
@@ -42,18 +56,29 @@ export const createCrawlerRouter = () => {
    *       200:
    *         description: Status
    */
-  router.get('/status/:id', CrawlerController.getStatusById);
+  router.get('/status/:id', validateSchema(statusSchema), CrawlerController.getStatusById);
+
+  /**
+   * @swagger
+   * /api/crawling/clear:
+   *   delete:
+   *     summary: clear queue
+   *     responses:
+   *       200:
+   *         description: Status
+   */
+  router.delete('/clear', CrawlerController.clearQueue);
 
   /**
    * @swagger
    * /api/crawling/terminate:
    *   delete:
-   *     summary: Delete db
+   *     summary: terminate queue
    *     responses:
    *       200:
    *         description: Status
    */
-  router.delete('/terminate', CrawlerController.deleteDb);
+  router.delete('/terminate', CrawlerController.terminateQueue);
 
   return router;
 };
